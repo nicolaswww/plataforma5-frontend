@@ -1,3 +1,6 @@
+.form__subtitle {
+  font-size: 1.25em;
+}
 .form__error {
   color: red;
 }

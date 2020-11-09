@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.app__title {
+  font-size: 1.5em;
+}
+
+@media (min-width: 992px) {
+  .app__title {
+    font-size: 3em;
+  }
+}

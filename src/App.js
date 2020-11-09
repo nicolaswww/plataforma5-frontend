@@ -38,15 +38,15 @@ function App() {
 
   return (
     <Fragment>
-      <div className="container">
-        <h1 className="py-5 my-lg-4">
+      <div className="app container">
+        <h1 className="app__title pt-3 pb-4 mb-3 py-lg-5 mb-lg-0 mt-lg-4">
           Usuarios
         </h1>
         <div className="row">
-          <div className="col-12 col-lg-6">
+          <div className="col-12 col-lg-5">
             <Form addUser={addUser} />
           </div>
-          <div className="col-12 col-lg-6">
+          <div className="col-12 col-lg-6 offset-lg-1">
             {
               users.map(user => (
                 <User

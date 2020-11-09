@@ -2,16 +2,21 @@ import React, { Fragment, useState } from 'react';
 import './Form.css';
 
 const Form = ({addUser}) => {
+  const MAX_BAGGAGES = 3;
+  const BAGGAGE_TYPES = {
+    Small: '1',
+    Medium: '2',
+    Big: '3'
+  };
+
   const [user, setUser] = useState({
     name: '',
     flight: ''
   });
   const [baggages, setBaggages] = useState([{
-    type: '1'
+    type: BAGGAGE_TYPES.Small
   }]);
   const [error, setError] = useState('');
-
-  const MAX_BAGGAGES = 3;
 
   const handleChange = e => {
     setUser({
@@ -43,11 +48,11 @@ const Form = ({addUser}) => {
     addUser(userWithBaggages);
 
     setUser({name: '', flight: '', baggages: []});
-    setBaggages([{type: '1'}]);
+    setBaggages([{type: BAGGAGE_TYPES.Small}]);
   }
 
   const clickAddBaggage = () => {
-    setBaggages([...baggages, {type: '1'}]);
+    setBaggages([...baggages, {type: BAGGAGE_TYPES.Small}]);
   }
 
   const clickRemoveBaggage = (i) => {
@@ -57,47 +62,53 @@ const Form = ({addUser}) => {
 
   return (
     <Fragment>
-      <h4 className="mb-3">Datos del pasajero</h4>
       <form className="form" onSubmit={submitForm}>
-        <div>
-          <label>Nombre</label>
+        <h4 className="form__subtitle mb-3">Datos del pasajero</h4>
+        <div class="form-group">
+          <label for="name">Nombre</label>
           <input
+            id="name"
             type="text"
             name="name"
             placeholder="Ej: Juan Pérez"
+            class="form-control"
             onChange={handleChange}
             value={user.name}
           />
         </div>
-        <div>
-          <label>Nº de vuelo</label>
+        <div class="form-group">
+          <label for="flight">Nº de vuelo</label>
           <input
+            id="flight"
             type="text"
             name="flight"
             placeholder="Ej: AR678"
             maxLength="5"
+            class="form-control"
             onChange={handleChange}
             value={user.flight}
           />
         </div>
 
-        <h4 className="mt-4 mb-3">Datos del equipaje</h4>
+        <h4 className="form__subtitle mt-4 mb-3 pt-lg-2">Datos del equipaje</h4>
 
-        <div className="form__baggages mb-5">
+        <div className="form__baggages mb-4 mb-lg-5">
           {
             baggages.map((baggage, i) => {
               return (
-                <div className="baggage d-flex align-items-center" key={i}>
-                  <label className="mb-0">Tipo</label>
-                  <select onChange={(e) => handleChangeBaggageType(e, i)}>
-                    <option value="1">
-                      Grande
+                <div className="baggage form-group d-flex align-items-center" key={i}>
+                  <select
+                    class="form-control"
+                    onChange={(e) => handleChangeBaggageType(e, i)}
+                  >
+                    <option value={BAGGAGE_TYPES.Small}>
+                      Prenda
                     </option>
-                    <option value="2">
+                    <option value={BAGGAGE_TYPES.Medium}>
                       Pequeño
                     </option>
-                    <option value="3">
-                      Prenda
+                    <option value={BAGGAGE_TYPES.Big}>
+                      Grande
                     </option>
                   </select>
                   { i > 0 && (i + 1) === baggages.length ? (
@@ -117,7 +128,7 @@ const Form = ({addUser}) => {
           }
           { baggages.length < MAX_BAGGAGES ? (
               <button
-                className="btn btn-outline-primary mt-3"
+                className="btn btn-outline-primary"
                 type="button"
                 onClick={() => clickAddBaggage()}
               >
@@ -127,10 +138,10 @@ const Form = ({addUser}) => {
         </div>
 
         { error ? (<p className="form__error">{error}</p>) : null }
-        <div>
+        <div class="mb-5 mb-lg-0">
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary btn-block"
           >
             Guardar
           </button>
