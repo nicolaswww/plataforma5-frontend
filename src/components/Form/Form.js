@@ -1,11 +1,12 @@
 import React, { Fragment, useState } from 'react';
+import './Form.css';
 
 const Form = ({addUser}) => {
-
   const [user, setUser] = useState({
     name: '',
     flight: ''
   });
+  const [error, setError] = useState('');
 
   const handleChange = e => {
     setUser({
@@ -18,11 +19,15 @@ const Form = ({addUser}) => {
     e.preventDefault();
 
     const {name, flight} = user;
-    if (name.trim() === '' || flight.trim() === '') {
-      console.error('invalid form');
-      // TODO: handle error
+    if (name.trim() === '') {
+      setError('Completar el nombre');
       return;
     }
+    if (flight.trim() === '') {
+      setError('Completar el Nº de vuelo');
+      return;
+    }
+    setError('');
 
     setUser({name: '', flight: ''});
     addUser(user);
@@ -31,7 +36,7 @@ const Form = ({addUser}) => {
   return (
     <Fragment>
       <h2>Form</h2>
-      <form onSubmit={submitForm}>
+      <form className="form" onSubmit={submitForm}>
         <div>
           <label>Nombre</label>
           <input
@@ -53,6 +58,7 @@ const Form = ({addUser}) => {
             value={user.flight}
           />
         </div>
+        { error ? (<p className="form__error">{error}</p>) : null }
         <div>
           <button
             type="submit"
