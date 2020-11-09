@@ -7,27 +7,24 @@ function App() {
   const [users, setUsers] = useState([{
     id: 1,
     name: 'Nico',
-    flight: 'AR123'
+    flight: 'AR123',
+    baggages: [{type: 1}, {type: 2}]
   }, {
     id: 2,
     name: 'Lulu',
-    flight: 'AR124'
+    flight: 'AR124',
+    baggages: []
   }]);
 
   const addUser = (user) => {
     const newUser = {...user, id: Math.round(Math.random() * 1000)}
-    setUsers([...users, newUser]);
+    setUsers([newUser, ...users]);
     // TODO: add with API
   }
 
   const removeUser = (id) => {
     setUsers(users.filter((user) => user.id !== id));
     // TODO: delete with API
-  }
-
-  const editUser = (id, editedUser) => {
-    setUsers(users.map((user) => user.id === id ? editedUser : user));
-    // TODO: edit with API
   }
 
   return (
@@ -47,7 +44,6 @@ function App() {
                   key={user.id}
                   user={user}
                   removeUser={removeUser}
-                  editUser={editUser}
                 />
               ))
             }
