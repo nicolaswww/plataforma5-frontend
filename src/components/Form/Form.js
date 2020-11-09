@@ -1,13 +1,11 @@
 import React, { Fragment, useState } from 'react';
 
-const Form = () => {
+const Form = ({addUser}) => {
 
   const [user, setUser] = useState({
     name: '',
     flight: ''
   });
-
-  const {name, flight} = user;
 
   const handleChange = e => {
     setUser({
@@ -26,8 +24,8 @@ const Form = () => {
       return;
     }
 
-    console.log(user);
-    // TODO: submit form (API)
+    setUser({name: '', flight: ''});
+    addUser(user);
   }
 
   return (
@@ -41,7 +39,7 @@ const Form = () => {
             name="name"
             placeholder="Ej: Juan Pérez"
             onChange={handleChange}
-            value={name}
+            value={user.name}
           />
         </div>
         <div>
@@ -52,7 +50,7 @@ const Form = () => {
             placeholder="Ej: AR678"
             maxLength="5"
             onChange={handleChange}
-            value={flight}
+            value={user.flight}
           />
         </div>
         <div>
