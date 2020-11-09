@@ -1,31 +1,40 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Form from './components/Form/Form';
 import User from './components/User/User';
 
 function App() {
+  const API_URL = 'http://localhost:3000/api/v1';
 
-  const [users, setUsers] = useState([{
-    id: 1,
-    name: 'Nico',
-    flight: 'AR123',
-    baggages: [{type: 1}, {type: 2}]
-  }, {
-    id: 2,
-    name: 'Lulu',
-    flight: 'AR124',
-    baggages: []
-  }]);
+  const [users, setUsers] = useState([]);
 
-  const addUser = (user) => {
-    const newUser = {...user, id: Math.round(Math.random() * 1000)}
-    setUsers([newUser, ...users]);
-    // TODO: add with API
+  const addUser = (payload) => {
+    const apiUrl = `${API_URL}/user`;
+    const options = {
+      method: 'POST',
+      headers: {'Content-type': 'application/json; charset=UTF-8'},
+      body: JSON.stringify(payload)
+    };
+    fetch(apiUrl, options)
+      .then((res) => res.json())
+      .then(({data: newUser}) => {
+        setUsers([newUser, ...users]);
+      });
   }
 
   const removeUser = (id) => {
-    setUsers(users.filter((user) => user.id !== id));
-    // TODO: delete with API
+    const apiUrl = `${API_URL}/user/id/${id}`;
+    fetch(apiUrl, {method: 'DELETE'})
+      .then(() => setUsers(users.filter((user) => user.id !== id)));
   }
+
+  useEffect(() => {
+    const apiUrl = `${API_URL}/user`;
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then(({data: users}) => {
+        setUsers(users);
+      });
+  }, [setUsers]);
 
   return (
     <Fragment>
