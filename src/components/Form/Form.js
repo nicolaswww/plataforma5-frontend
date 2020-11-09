@@ -64,27 +64,27 @@ const Form = ({addUser}) => {
     <Fragment>
       <form className="form" onSubmit={submitForm}>
         <h4 className="form__subtitle mb-3">Datos del pasajero</h4>
-        <div class="form-group">
-          <label for="name">Nombre</label>
+        <div className="form-group">
+          <label htmlFor="name">Nombre</label>
           <input
             id="name"
             type="text"
             name="name"
             placeholder="Ej: Juan Pérez"
-            class="form-control"
+            className="form-control"
             onChange={handleChange}
             value={user.name}
           />
         </div>
-        <div class="form-group">
-          <label for="flight">Nº de vuelo</label>
+        <div className="form-group">
+          <label htmlFor="flight">Nº de vuelo</label>
           <input
             id="flight"
             type="text"
             name="flight"
             placeholder="Ej: AR678"
             maxLength="5"
-            class="form-control"
+            className="form-control"
             onChange={handleChange}
             value={user.flight}
           />
@@ -98,7 +98,7 @@ const Form = ({addUser}) => {
               return (
                 <div className="baggage form-group d-flex align-items-center" key={i}>
                   <select
-                    class="form-control"
+                    className="form-control"
                     onChange={(e) => handleChangeBaggageType(e, i)}
                   >
                     <option value={BAGGAGE_TYPES.Small}>
@@ -138,7 +138,7 @@ const Form = ({addUser}) => {
         </div>
 
         { error ? (<p className="form__error">{error}</p>) : null }
-        <div class="mb-5 mb-lg-0">
+        <div className="mb-5 mb-lg-0">
           <button
             type="submit"
             className="btn btn-primary btn-block"
